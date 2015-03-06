@@ -26,7 +26,7 @@ do
     rm hig-$i.osm
     rm u-$i.osm
     rm u-$i.geojson
-    echo"Process completed $i"
+    echo "Process completed $i"
 
 done
 rm u
