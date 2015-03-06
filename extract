@@ -1,16 +1,24 @@
 #!/bin/bash
-path_files=""
+url="http://planet.osm.org/replication/day/000/000/" 
 sed 's/@/@user=/g' $4 > temp
 sed 's/,/ or /g' temp > u
 rm temp
 for i in $(seq $1 $2)
-do	
-	curl -O http://planet.osm.org/replication/day/000/000/$i.osc.gz    
+do	       
+    if (($i<10)); then
+        curl ${url}00$i.osc.gz -o "$i.osc.gz"
+    fi
+    if (($i<100)) && (($i>=10)); then
+        curl ${url}0$i.osc.gz -o "$i.osc.gz"
+    fi
+    if (($i>=100)); then
+        curl $url$i.osc.gz -o "$i.osc.gz"
+    fi 
     echo "Processing file $i"
-	gzip -d $i.osc.gz
-	./osmconvert $i.osc -B=$3 -o=$i.o5m   	
-   	./osmfilter $i.o5m --keep="highway=" -o=hig-$i.osm
-   	./osmfilter hig-$i.osm --keep="\"$(cat u)\"" -o=u-$i.osm
+    gzip -d $i.osc.gz
+    ./osmconvert $i.osc -B=$3 -o=$i.o5m     
+    ./osmfilter $i.o5m --keep="highway=" -o=hig-$i.osm
+    ./osmfilter hig-$i.osm --keep="\"$(cat u)\"" -o=u-$i.osm
     node index.js --osmfile=u-$i.osm
     ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbtiger" -append u-$i.geojson
     rm $i.osc
@@ -18,7 +26,8 @@ do
     rm hig-$i.osm
     rm u-$i.osm
     rm u-$i.geojson
-    echo "Process completed $i"
+    echo"Process completed $i"
+
 done
 rm u
 
