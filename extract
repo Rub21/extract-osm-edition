@@ -1,5 +1,5 @@
 #!/bin/bash
-url="http://planet.osm.org/redaction-period/day-replicate/000/000/" 
+url="http://planet.osm.org/replication/day/000/000/" 
 sed 's/@/@user=/g' $4 > temp
 sed 's/,/ or /g' temp > u
 rm temp
