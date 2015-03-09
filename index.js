@@ -19,7 +19,10 @@ handler.on('node', function(node) {
 handler.on('way', function(way) {
 	var feature = {
 		"type": "Feature",
-		"properties": {},
+		"properties": {
+			"osmuser": null,
+			"osmtimestamp": null
+		},
 		"geometry": {
 			"type": "LineString",
 			"coordinates": []
