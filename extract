@@ -1,5 +1,6 @@
 #!/bin/bash
-url="http://planet.osm.org/replication/day/000/000/" 
+#url="http://planet.osm.org/replication/day/000/000/"
+url="http://planet.openstreetmap.org/replication/hour/000/021/"
 sed 's/@/@user=/g' $4 > temp
 sed 's/,/ or /g' temp > u
 rm temp
@@ -19,13 +20,13 @@ do
     ./osmconvert $i.osc -B=$3 -o=$i.o5m     
     ./osmfilter $i.o5m --keep="highway=" -o=hig-$i.osm
     ./osmfilter hig-$i.osm --keep="\"$(cat u)\"" -o=u-$i.osm
-    node index.js --osmfile=u-$i.osm
-    ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbtiger3" -append u-$i.geojson
-    rm $i.osc
-    rm $i.o5m
-    rm hig-$i.osm
-    rm u-$i.osm
-    rm u-$i.geojson
+    echo node index.js --osmfile=u-$i.osm
+    ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbtiger4" -append u-$i.geojson
+    echo rm $i.osc
+    echo rm $i.o5m
+    echo rm hig-$i.osm
+    echo rm u-$i.osm
+    echo rm u-$i.geojson
     echo "Process completed $i"
 
 done

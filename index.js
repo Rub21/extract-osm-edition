@@ -17,9 +17,12 @@ handler.on('node', function(node) {
 	nodes[node.id] = coord;
 });
 handler.on('way', function(way) {
+	//console.log(way);
 	var feature = {
 		"type": "Feature",
 		"properties": {
+			"osmid": null,
+			"osmversion": null,
 			"osmuser": null,
 			"osmtimestamp": null
 		},
@@ -34,9 +37,12 @@ handler.on('way', function(way) {
 		}
 	}
 	if (feature.geometry.coordinates.length > 0) {
+		feature.properties['osmid'] = way.id;
+		feature.properties['osmversion'] = way.version;
 		feature.properties['osmuser'] = way.user;
 		feature.properties['osmtimestamp'] = way.timestamp;
 		geojson.features.push(feature);
+		console.log(geojson);
 	}
 });
 reader.apply(handler);
