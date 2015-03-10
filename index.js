@@ -17,7 +17,6 @@ handler.on('node', function(node) {
 	nodes[node.id] = coord;
 });
 handler.on('way', function(way) {
-	//console.log(way);
 	var feature = {
 		"type": "Feature",
 		"properties": {
@@ -42,7 +41,6 @@ handler.on('way', function(way) {
 		feature.properties['osmuser'] = way.user;
 		feature.properties['osmtimestamp'] = way.timestamp;
 		geojson.features.push(feature);
-		console.log(geojson);
 	}
 });
 reader.apply(handler);
