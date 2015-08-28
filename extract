@@ -17,8 +17,8 @@ do
     fi 
     echo "Processing file $i"
     gzip -d $i.osc.gz
-    ./osmconvert $i.osc -B=$3 -o=$i.o5m     
-    ./osmfilter $i.o5m --keep="highway=" -o=hig-$i.osm
+    ./osmconvert $i.osc -B=$3 -o=$i.osm     
+    ./osmfilter $i.osm  --keep="highway=" -o=hig-$i.osm
 
     users=("$(cat u)")
     IFS="," read -ra STR_ARRAY <<< "$users"
@@ -28,12 +28,12 @@ do
 
     done
     #./osmfilter hig-$i.osm --keep="\"$(cat u)\"" -o=u-$i.osm
-    ./osmconvert $i-* -o=u-$i.osm
+    ./osmconvert $i-*.osm -o=u-$i.osm
     node index.js --osmfile=u-$i.osm
     ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbprotiger" -append u-$i.geojson
     rm $i-*
     rm $i.osc
-    rm $i.o5m
+    #rm $i.o5m
     rm hig-$i.osm
     rm u-$i.osm
     rm u-$i.geojson
