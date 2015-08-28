@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "optimist": "^0.6.1",
-    "osmium": "^0.4.0",
+    "osmium": "https://github.com/osmcode/node-osmium/tarball/master",
     "underscore": "^1.8.2"
   },
   "scripts": {
