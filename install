@@ -10,4 +10,12 @@ sudo apt-get install libsparsehash-dev     libboost-dev libboost-program-options
 sudo add-apt-repository ppa:ubuntugis/ppa
 sudo apt-get update
 sudo apt-get install gdal-bin
+
+git clone https://github.com/osmcode/libosmium.git
+mkdir build
+cd build
+cmake ..
+make
+
+
 echo ./extract 0 999 users us.poly
