@@ -23,12 +23,12 @@ cd extract-osm-edition/
 #Ejecucion para establecer las columnas de la tabla
 wget http://planet.osm.org/replication/day/000/001/080.osc.gz
 gzip -d 080.osc.gz
-./osmfilter 080.osc --keep="@user=Rub21" -o=Rub21.osm
-node index.js --osmfile=Rub21.osm
-ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbprotiger" -append Rub21.geojson
+./osmfilter 080.osc --keep="@user=PlaneMad" -o=PlaneMad.osm
+node index.js --osmfile=PlaneMad.osm
+ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbprotiger" -append PlaneMad.geojson
 rm 080.osc
-rm Rub21.geojson
-rm Rub21.osm
+rm PlaneMad.geojson
+rm PlaneMad.osm
 
 # Ejecucion  en gran escala
 touch log-1-200
