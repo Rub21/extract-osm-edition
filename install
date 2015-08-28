@@ -1,10 +1,8 @@
 #!/bin/bash
+npm install
 psql -U postgres -c "create database dbprotiger";
 psql -U postgres -d dbprotiger -f /usr/share/postgresql/9.3/contrib/postgis-2.1/postgis.sql
 psql -U postgres -d dbprotiger -f /usr/share/postgresql/9.3/contrib/postgis-2.1/spatial_ref_sys.sql
-git clone  https://github.com/Rub21/extract-osm-edition.git
-cd extract-osm-edition/
-npm install
 sudo apt-get install     cmake cmake-curses-gui make     libexpat1-dev     zlib1g-dev libbz2-dev
 sudo apt-get install libsparsehash-dev     libboost-dev libboost-program-options-dev     libgdal-dev libgeos++-dev libproj-dev     doxygen graphviz
 sudo add-apt-repository ppa:ubuntugis/ppa
@@ -20,6 +18,8 @@ make
 
 echo ./extract 0 999 users us.poly
 
+cd 
+cd extract-osm-edition/
 # Ejecucion 
 touch 1-200
 touch 201-400
