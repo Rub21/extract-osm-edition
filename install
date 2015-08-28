@@ -19,7 +19,18 @@ make
 
 cd 
 cd extract-osm-edition/
-# Ejecucion 
+
+#Ejecucion para establecer las columnas de la tabla
+wget http://planet.osm.org/replication/day/000/001/080.osc.gz
+gzip -d 080.osc.gz
+./osmfilter 080.osc --keep="@user=Rub21" -o=Rub21.osm
+node index.js --osmfile=Rub21.osm
+ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbprotiger" -append Rub21.geojson
+rm 080.osc
+rm Rub21.geojson
+rm Rub21.osm
+
+# Ejecucion  en gran escala
 touch 1-200
 touch 201-400
 touch 401-600
@@ -33,3 +44,4 @@ nohup ./extract 601 800 us.poly users  > 601-800 2>&1 &
 nohup ./extract 801 999 us.poly users  > 801-999  2>&1 &
 
 echo ./extract 0 999  us.poly users
+
