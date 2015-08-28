@@ -16,17 +16,17 @@ do
         curl $url$i.osc.gz -o "$i.osc.gz"
     fi 
     echo "Processing file $i"
-    gzip -d $i.osc.gz
-    ./osmconvert $i.osc -B=$3 -o=$i.o5m     
-    ./osmfilter $i.o5m --keep="highway=" -o=hig-$i.osm
-    ./osmfilter hig-$i.osm --keep="\"$(cat u)\"" -o=u-$i.osm
-    node index.js --osmfile=u-$i.osm
-    ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbprotiger" -append u-$i.geojson
-    rm $i.osc
-    rm $i.o5m
-    rm hig-$i.osm
-    rm u-$i.osm
-    rm u-$i.geojson
+    echo gzip -d $i.osc.gz
+    echo ./osmconvert $i.osc -B=$3 -o=$i.o5m     
+    echo ./osmfilter $i.o5m --keep="highway=" -o=hig-$i.osm
+    echo ./osmfilter hig-$i.osm --keep="\"$(cat u)\"" -o=u-$i.osm
+    echo node index.js --osmfile=u-$i.osm
+    echo ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbprotiger" -append u-$i.geojson
+    echo rm $i.osc
+    echo rm $i.o5m
+    echo  rm hig-$i.osm
+    echo rm u-$i.osm
+    echo rm u-$i.geojson
     echo "Process completed $i"
 
 done
