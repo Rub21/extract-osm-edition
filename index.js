@@ -9,9 +9,10 @@ var geojson = {
 	"type": "FeatureCollection",
 	"features": []
 };
-var file = new osmium.File(osmfile);
-var reader = new osmium.Reader(file);
+
+var reader = new osmium.Reader(osmfile);
 var handler = new osmium.Handler();
+
 handler.on('node', function(node) {
 	var coord = [node.lon, node.lat];
 	nodes[node.id] = coord;
@@ -43,7 +44,7 @@ handler.on('way', function(way) {
 		geojson.features.push(feature);
 	}
 });
-reader.apply(handler);
+osmium.apply(handler);
 var outputFilename = osmfile.split('.')[0] + '.geojson';
 fs.writeFile(outputFilename, JSON.stringify(geojson), function(err) {
 	if (err) {
