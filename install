@@ -23,7 +23,8 @@ cd extract-osm-edition/
 #Ejecucion para establecer las columnas de la tabla
 wget http://planet.osm.org/replication/day/000/001/080.osc.gz
 gzip -d 080.osc.gz
-./osmfilter 080.osc --keep="@user=PlaneMad" -o=PlaneMad.osm
+./osmconvert 080.osc -B=us.poly -o=080.osm 
+./osmfilter 080.osm --keep="@user=PlaneMad" -o=PlaneMad.osm
 node index.js --osmfile=PlaneMad.osm
 ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbprotiger" -append PlaneMad.geojson
 rm 080.osc

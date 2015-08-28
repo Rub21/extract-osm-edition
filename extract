@@ -33,6 +33,8 @@ do
     ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbprotiger" -append u-$i.geojson
     rm $i-*
     rm $i.osc
+    rm $i.osm
+    rm $i.osc.gz
     #rm $i.o5m
     rm hig-$i.osm
     rm u-$i.osm
