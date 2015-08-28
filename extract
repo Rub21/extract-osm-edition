@@ -24,7 +24,7 @@ do
     IFS="," read -ra STR_ARRAY <<< "$users"
     for j in "${STR_ARRAY[@]}"
     do
-        ./osmfilter $i.osc --keep="\"@user=$j\"" -o=$i-$(echo $j | tr -d ' ').osm
+        ./osmfilter hig-$i.osm --keep="\"@user=$j\"" -o=$i-$(echo $j | tr -d ' ').osm
 
     done
     
@@ -32,7 +32,9 @@ do
     ./osmconvert $i-* -o=u-$i.osm
     node index.js --osmfile=u-$i.osm
 
+
     ogr2ogr -f "PostgreSQL" PG:"host=localhost user=postgres dbname=dbprotiger" -append u-$i.geojson
+    rm $i-*
     rm $i.osc
     rm $i.o5m
     rm hig-$i.osm
