@@ -16,7 +16,7 @@ cmake ..
 make
 
 
-echo ./extract 0 999 users us.poly
+echo ./extract 0 999  us.poly users
 
 cd 
 cd extract-osm-edition/
