@@ -1,5 +1,6 @@
 #!/bin/bash
 npm install
+
 psql -U postgres -c "create database dbprotiger";
 psql -U postgres -d dbprotiger -f /usr/share/postgresql/9.3/contrib/postgis-2.1/postgis.sql
 psql -U postgres -d dbprotiger -f /usr/share/postgresql/9.3/contrib/postgis-2.1/spatial_ref_sys.sql
@@ -10,13 +11,11 @@ sudo apt-get update
 sudo apt-get install gdal-bin
 
 git clone https://github.com/osmcode/libosmium.git
+cd libosmium
 mkdir build
 cd build
 cmake ..
 make
-
-
-echo ./extract 0 999  us.poly users
 
 cd 
 cd extract-osm-edition/
@@ -32,3 +31,5 @@ nohup ./extract 201 400 us.poly users  > 201-400  2>&1 &
 nohup ./extract 401 600 us.poly users  > 401-600  2>&1 &
 nohup ./extract 601 800 us.poly users  > 601-800 2>&1 &
 nohup ./extract 801 999 us.poly users  > 801-999  2>&1 &
+
+echo ./extract 0 999  us.poly users

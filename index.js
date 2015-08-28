@@ -9,8 +9,8 @@ var geojson = {
         "type": "FeatureCollection",
         "features": []
 };
-var file = new osmium.File(osmfile);
-var reader = new osmium.Reader(file);
+//var file = new osmium.File(osmfile);
+var reader = new osmium.Reader(osmfile);
 var handler = new osmium.Handler();
 
 handler.on('node', function(node) {
@@ -31,9 +31,9 @@ handler.on('way', function(way) {
                         "coordinates": []
                 }
         };
-        for (var i = 0; i < way.nodes().length; i++) {
-                if (nodes.hasOwnProperty(way.nodes()[i])) {
-                        feature.geometry.coordinates.push(nodes[way.nodes()[i]]);
+        for (var i = 0; i < way.node_refs().length; i++) {
+                if (nodes.hasOwnProperty(way.node_refs()[i])) {
+                        feature.geometry.coordinates.push(nodes[way.node_refs()[i]]);
                 }
         }
         if (feature.geometry.coordinates.length > 0) {
